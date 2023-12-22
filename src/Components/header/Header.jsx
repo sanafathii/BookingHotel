@@ -13,10 +13,13 @@ import {
   useSearchParams,
 } from "react-router-dom";
 function Header() {
-  const [destination, setDestination] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [destination, setDestination] = useState(
+    searchParams.get("destination" || "")
+  );
   const [openOptions, setOpenOptions] = useState(false);
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const [options, setOptions] = useState({ adult: 1, children: 0, room: 1 });
   const [date, setDate] = useState([
     { startDate: new Date(), endDate: new Date(), key: "selection" },
@@ -36,8 +39,7 @@ function Header() {
       destination,
       options: JSON.stringify(options),
     });
-    // setSearchParams(encodedParams);
-    // navigate("/hotels");
+
     navigate({
       pathname: "/hotels",
       search: encodedParams.toString(),
