@@ -6,23 +6,34 @@ import { Route, Routes } from "react-router-dom";
 import AppLayout from "./Components/AppLayout/AppLayout";
 import Hotels from "./Components/Hotels/Hotels";
 import HotelsProvider from "./Components/context/HotelsProvider";
+import SingleHotel from "./Components/SingleHotel/SingleHotel";
+import BookMarkLayOut from "./Components/BookMarkLayOut/BookMarkLayOut";
+import BookmarkListProvider from "./Components/context/BookmarkListProvider";
+
+import Bookmark from "./Components/BookMark/BookMark";
 
 function App() {
   return (
-    <HotelsProvider>
-      <div>
-        <Toaster />
-        <Header />
-        {/* <LocationList /> */}
-        <Routes>
-          <Route path="/" element={<LocationList />} />
-          <Route path="/hotels" element={<AppLayout />}>
-            <Route index element={<Hotels />} />
-            <Route path=":id" element={<div>single hotel</div>} />
-          </Route>
-        </Routes>
-      </div>
-    </HotelsProvider>
+    <BookmarkListProvider>
+      <HotelsProvider>
+        <div>
+          <Toaster />
+          <Header />
+          <Routes>
+            <Route path="/" element={<LocationList />} />
+            <Route path="/hotels" element={<AppLayout />}>
+              <Route index element={<Hotels />} />
+              <Route path=":id" element={<SingleHotel />} />
+            </Route>
+            <Route path="/bookmark" element={<BookMarkLayOut />}>
+              <Route index element={<Bookmark />} />
+              <Route path=":id" element={<div>single bookmark</div>} />
+              <Route path="add" element={<div>add bookmark</div>} />
+            </Route>
+          </Routes>
+        </div>
+      </HotelsProvider>
+    </BookmarkListProvider>
   );
 }
 
