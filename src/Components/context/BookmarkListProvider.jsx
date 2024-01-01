@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/UseFetch";
 import axios from "axios";
@@ -8,21 +8,54 @@ const BASE_URL = "http://localhost:5000";
 //
 function BookmarkListProvider({ children }) {
   const [cureentBookmark, setCurrentBookmark] = useState(null);
-  const [isLoadingCurrBookmark, setIsLoadingCurrBookmark] = useState(false);
+  // const [isLoadingCurrBookmark, setIsLoadingCurrBookmark] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  // const { data: bookmarks, isLoading } = useFetch(`${BASE_URL}/bookmarks`);
 
-  const { data: bookmarks, isLoading } = useFetch(`${BASE_URL}/bookmarks`);
+  useEffect(() => {
+    async function fetchBookmarkList() {
+      setIsLoading(true);
+
+      try {
+        const { data } = await axios.get(`${BASE_URL}/bookmarks`);
+        // console.log(data);
+        setBookmarks(data);
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchBookmarkList();
+  }, [cureentBookmark]);
 
   async function getBookmark(id) {
-    setIsLoadingCurrBookmark(true);
+    setIsLoading(true);
     setCurrentBookmark(null);
     try {
       const { data } = await axios.get(`${BASE_URL}/bookmarks/${id}`);
       // console.log(data);
       setCurrentBookmark(data);
-      setIsLoadingCurrBookmark(false);
     } catch (error) {
       toast.error(error.message);
-      setIsLoadingCurrBookmark(false);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  //
+
+  async function createBookmark(newBookmark) {
+    setIsLoading(true);
+
+    try {
+      const { data } = await axios.post(`${BASE_URL}/bookmarks/`, newBookmark);
+      // console.log(data);
+      setBookmarks((prev) => [...prev, data]);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -32,7 +65,8 @@ function BookmarkListProvider({ children }) {
         bookmarks,
         cureentBookmark,
         getBookmark,
-        isLoadingCurrBookmark,
+        isLoading,
+        createBookmark,
       }}
     >
       {children}

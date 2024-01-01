@@ -1352,22 +1352,13 @@
       "id": 5
     },
     {
-      "cityName": "A Dakhla Oasis",
-      "country": "Egypt",
-      "countryCode": "EG",
-      "latitude": "25.02090651422749",
-      "longitude": "29.09059588509316",
-      "host_location": "A Dakhla Oasis Egypt",
-      "id": 7
-    },
-    {
-      "cityName": "Baba Kot",
-      "country": "Pakistan",
-      "countryCode": "PK",
-      "latitude": "28.43528783183169",
-      "longitude": "67.78003711374224",
-      "host_location": "Baba Kot Pakistan",
-      "id": 8
+      "cityName": "New Romney",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "countyCode": "GB",
+      "latitude": "50.98550998966645",
+      "longitude": "0.9560085132422194",
+      "host_location": "New RomneyUnited Kingdom of Great Britain and Northern Ireland (the)",
+      "id": 6
     }
   ]
 }
