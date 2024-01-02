@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 function Bookmark() {
   const { isLoading, bookmarks, cureentBookmark, deleteBookmark } =
     useBookmark();
-  const handeDelete = (e, id) => {
+  const handeDelete = async (e, id) => {
     e.preventDefault();
 
-    deleteBookmark(id);
+    await deleteBookmark(id);
   };
 
   if (isLoading) return <div>is Loading ...</div>;
