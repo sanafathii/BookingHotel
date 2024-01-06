@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 import { MdLocationOn } from "react-icons/md";
-import { HiCalendar, HiMinus, HiPlus, HiSearch } from "react-icons/hi";
+import {
+  HiCalendar,
+  HiLogout,
+  HiMinus,
+  HiPlus,
+  HiSearch,
+} from "react-icons/hi";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -13,6 +19,7 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [destination, setDestination] = useState(
@@ -46,6 +53,7 @@ function Header() {
       search: encodedParams.toString(),
     });
   };
+
   return (
     <div className="header">
       <NavLink to="/bookmark">Bookmarks</NavLink>
@@ -103,6 +111,7 @@ function Header() {
           </button>
         </div>
       </div>
+      <User />
     </div>
   );
 }
@@ -156,6 +165,29 @@ function OptionItem({ options, type, minLimit, handelOptions }) {
           <HiPlus className="icon" />
         </button>
       </div>
+    </div>
+  );
+}
+
+function User() {
+  const { user, isAthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  const handelLogout = () => {
+    logout();
+    navigate("/");
+  };
+  return (
+    <div>
+      {isAthenticated ? (
+        <div>
+          <span>{user.name}</span>
+          <button onClick={handelLogout}>
+            <HiLogout svg className="icon" />
+          </button>
+        </div>
+      ) : (
+        <NavLink to="/login">login</NavLink>
+      )}
     </div>
   );
 }

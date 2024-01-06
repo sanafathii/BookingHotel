@@ -1341,6 +1341,15 @@
       "longitude": "0.9832763671875001",
       "host_location": "DymchurchUnited Kingdom of Great Britain and Northern Ireland (the)",
       "id": 7
+    },
+    {
+      "cityName": "Sanandaj",
+      "country": "Iran (Islamic Republic of)",
+      "countyCode": "IR",
+      "latitude": "35.26499150517708",
+      "longitude": "46.937122723914136",
+      "host_location": "SanandajIran (Islamic Republic of)",
+      "id": 8
     }
   ]
 }
